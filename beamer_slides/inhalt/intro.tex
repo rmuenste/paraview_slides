@@ -13,7 +13,6 @@
 \begin{frame}
   \frametitle{About CMake}
 
-      \begin{block}{CMake Features}
         \begin{itemize}
           \item Open-source application for 'managing the build process' of a software package
           \item CMake is available on all major platforms (Linux, Windows, MacOS, ...) 
@@ -23,79 +22,137 @@
           \item Supports in-place and out-of-place builds
           \item Can generate project files for various IDEs (Visual Studio, Xcode, Eclipse, ...)
           \item Has a mechanism to locate libraries in the OS
-          \item Can download missing libraries on demand
+          \item 'Easy' to enable/disable optional components of a software package ($\rightarrow$ modular builds)
         \end{itemize}
-      \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Features of CMake}
+
+        \begin{itemize}
+          \item Saves a lot of time when building for different OSs 
+          \item Easier to combine source code written in different languages 
+          \item Easier to specify different build options 
+          \item Widely used in many open-source packages
+          \item Makes it easier to integrate third-party libraries
+          \item cmake-gui as a graphical tool to help beginners and explore build options 
+          \item ccmake to explore build options on the console 
+          \item CDash as a built-in testing system and dashboard 
+          \item CTest as a packaging system for the different operating systems 
+        \end{itemize}
 
 \end{frame}
 
-
 \begin{frame}
-  \frametitle{ParaView Software Ecosystem}
-  \vspace{-0.9cm}
-  \begin{tikzpicture}[remember picture,overlay]
-    \tikzset{shift={(current page.center)},yshift=-1.5cm}
+  \frametitle{Software Packages that use CMake}
+  \vspace{-1cm}
 
-    \node[text width=8cm] (C1) at (-8, -0.0) {
-      \begin{block}{VTK}
+  \begin{columns}
+
+    \column{0.5 \textwidth} {
+
+      \begin{block}{Part of the Kitware Family}
+        Used for building:
         \begin{itemize}
-          \item Visualization backend
-          \item Uses OpenGL
+          \item VTK 
+          \item ParaView 
         \end{itemize}
       \end{block}
-    };
-
-    \node[text width=8cm] (C2) at (8,-0.7) {
-      \begin{block}{Qt (cute)}
+      \begin{center}
+      \includegraphics[width=0.4 \textwidth]{img/kw-logo.png}
+    \end{center}
+    }
+    \column{0.5 \textwidth} {
+      \begin{block}{Open Source Libraries}
         \begin{itemize}
-          \item Provides widges and other GUI controls
-          \item Support for modular plugins
+          \item Bullet Physics Enginge 
+          \item CGAL 
+          \item LAPACK 
+          \item MikTeX 
+          \item OGRE  
+          \item OpenSceneGraph  
+          \item Qt  
+          \item Many solver packages (Eigen, Super-LU, ...)
+          \item FeatFloWer  
+          \item Feat3  
+          \item ...  
         \end{itemize}
       \end{block}
-    };
-
-    \node[text width=8cm] (C3) at (0,4) {
-      \begin{block}{CMake}
-        \begin{itemize}
-          \item Script language to control the building process
-          \item Generates a wide range of specific build files
-        \end{itemize}
-      \end{block}
-    };
-
-    \node[text width=8cm] (C4) at (0,-4.85) {
-      \begin{block}{ParaView}
-        \begin{itemize}
-          \item VTK visualization by GUI
-          \item Scripting via Python
-          \item Extension by plugins
-        \end{itemize}
-      \end{block}
-    };
-
-\end{tikzpicture}
+    }
+\end{columns}
 \end{frame}
 
+%\begin{frame}
+%  \frametitle{Software Packages that use CMake}
+%  \begin{tikzpicture}[remember picture,overlay]
+%    \tikzset{shift={(current page.center)}}
+%
+%    \node[text width=8cm] (C1) at (-6.8, 2.5) {
+%      \begin{block}{Part of the Kitware Family}
+%        Used for building:
+%        \begin{itemize}
+%          \item VTK 
+%          \item ParaView 
+%        \end{itemize}
+%      \end{block}
+%    };
+%
+%    \node[text width=8cm] (C2) at (5,-1.6) {
+%      \begin{block}{Open Source Libraries}
+%        \begin{itemize}
+%          \item Bullet Physics Enginge 
+%          \item CGAL 
+%          \item LAPACK 
+%          \item MikTeX 
+%          \item OGRE  
+%          \item OpenSceneGraph  
+%          \item Qt  
+%          \item Many solver packages (Eigen, Super-LU, ...)
+%          \item FeatFloWer  
+%          \item Feat3  
+%          \item ...  
+%        \end{itemize}
+%      \end{block}
+%    };
+%
+%%    \node[text width=8cm] (C3) at (0,8) {
+%%      \begin{block}{CMake}
+%%        \begin{itemize}
+%%          \item Script language to control the building process
+%%          \item Generates a wide range of specific build files
+%%        \end{itemize}
+%%      \end{block}
+%%    };
+%%
+%%    \node[text width=8cm] (C4) at (0,7) {
+%%      \begin{block}{ParaView}
+%%        \begin{itemize}
+%%          \item VTK visualization by GUI
+%%          \item Scripting via Python
+%%          \item Extension by plugins
+%%        \end{itemize}
+%%      \end{block}
+%%    };
+%
+%\end{tikzpicture}
+%\end{frame}
 
-\begin{frame}
-  \frametitle{Use Cases of Visualization Software}
 
-      \begin{block}{Typical ParaView Use Cases}
-        \begin{itemize}
-          \item Provide an intuitive illustration of raw simulation data
+\begin{frame}[fragile]
+  \frametitle{CMake Simple Example}
 
-          \item Highlight key features of specific flow features
+  \begin{block}{CMakeLists.txt}
+\begin{verbatim}
+  cmake_minimum_required (VERSION 2.8)
 
-          \item Provide an intuitive understanding for non-expert viewers  
+  project(HelloWorld)
 
-          \item Help in the testing/debugging process of CFD software 
+  set(mySources main.cpp)
 
-          \item Assist during result validation by providing analysis tools  
+  add_executable(HelloWorld ${mySources})
 
-          \item Convert data in different formats in order to communicate with scientific partners
-        \end{itemize}
-      \end{block}
-
+\end{verbatim}
+  \end{block}
 \end{frame}
 
 \begin{frame}
