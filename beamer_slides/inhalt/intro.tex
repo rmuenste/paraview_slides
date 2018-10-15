@@ -266,12 +266,14 @@ target_link_libraries(hello_world hello_lib)
 \end{frame}
 
 \begin{frame}
-  \frametitle{Basic Filter Gallery I}
+  \frametitle{CMake Find Modules}
 
     \begin{itemize}
       \item CMake has a set of \textbf{CMake modules} to find common third-party libraries
       \item User can provide additional \textbf{CMake modules} to locate libraries 
       \item A \textbf{CMake module} is a *.cmake file written in the CMake language 
+      \item Naming convention for module files: \texttt{FindLIBRARY.cmake} 
+      \item A custom module needs to be added to the module path 
       \item Module by convention set variables:
     \begin{itemize}
       \item myLibrary\_FOUND: was the library found or not 
