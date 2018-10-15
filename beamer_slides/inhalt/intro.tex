@@ -140,6 +140,7 @@
 
 \begin{frame}[fragile]
   \frametitle{CMake Simple Example}
+  \vspace{-0.5cm}
 
   \begin{block}{CMakeLists.txt}
 \begin{verbatim}
@@ -152,155 +153,134 @@
   add_executable(HelloWorld ${mySources})
 
 \end{verbatim}
-  \end{block}
+\end{block}
+
+\begin{center}
+\includegraphics[width=0.8 \textwidth]{img/source-tree.png}
+\end{center}
+
 \end{frame}
 
 \begin{frame}
-  \frametitle{ParaView Interface}
+  \frametitle{Out-Of-Source-Builds}
+  \begin{itemize}
+    \item Source files are in a different directory than the binary files 
+  \end{itemize}
 
-  \begin{tikzpicture}[remember picture,overlay]
-    \tikzset{shift={(current page.center)},yshift=-1.5cm}
+  \begin{center}
+    \includegraphics[width=0.8 \textwidth]{img/source-bin.png}
+  \end{center}
 
-    \node[align=center,scale=0.3,transform shape] (C1) at (0,0)
-    {\includegraphics{screenshots/pv-gui.png}};
+\end{frame}
 
-\end{tikzpicture}
+\begin{frame}
+  \frametitle{Simple CMake Build Procedure}
+  \begin{center}
+    \includegraphics[width=\textwidth]{img/cmake-command-line.png}
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Simple CMake Build Procedure II}
+
+    \begin{itemize}
+      \item Searches for a file 'CMakeLists.txt' in the top level source directory as entry point 
+      \item Two step process: 
+      \begin{itemize}
+        \item Configure step: parses the CMakeLists.txt files and stores information in CMake cache
+        \item Generation of the OS specific build files based on the CMakeLists.txt
+      \end{itemize}
+      \item CMake Syntax: https://cmake.org/cmake/help/v3.13/manual/cmake-language.7.html
+      \item For more complex source trees, subdirectories can be added with the \texttt{add\_subdirectory()} command
+      \item Subdirectories added via \texttt{add\_subdirectory()} then need their own CMakeLists.txt file
+      \item For each directory that contains a CMakeLists.txt a corresponding directory is created in the build directory tree
+    \end{itemize}
 
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Filter Pipeline Concept}
+  \frametitle{Advanced CMake Example}
 
-    \begin{minipage}{0.45 \textwidth}
+    \begin{itemize}
+      \item Multiple source folders
+      \item Add a user defined library  
+      \item Search for third-party libraries
+    \end{itemize}
 
-      \begin{tikzpicture}%[nodes=draw]
-
-    \node[text width=8cm] (C1) at (-8, 1.25) {
-      \begin{block}{Filter Pipeline}
-        \begin{itemize}
-          \item A \keyword{filter} is an operation on an input data set
-          \item Filters can be chained (pipelined)  
-          \item More complex visualizations require multiple filters 
-        \end{itemize}
-      \end{block}
-    };
-
-    \node[align=center,scale=0.5,transform shape] (C1) at (-10,-5.0)
-    {\includegraphics{screenshots/filters.png}};
-
-    \end{tikzpicture}
-
-    \end{minipage}
-    \begin{minipage}{0.45 \textwidth}
+  \begin{columns}
+    \column{0.5 \textwidth} {
       \begin{center}
-        \begin{tikzpicture}%[nodes=draw]
-
-          \node[align=center,scale=0.189,transform shape] (C1) at (10,-1)
-          {\includegraphics{screenshots/begin-filter.png}};
-
-            \node [scale=2.8,
-            fill=TUgreen, 
-            single arrow,
-            rotate=270, 
-            font=\sffamily
-            ] at (10.0,-4.22)  
-            {\rotatebox{270}{}};
-
-          \node[align=center,scale=0.8,transform shape] (C2) at (10,-8)
-          {\includegraphics{screenshots/end-filter.png}};
-
-        \end{tikzpicture}
+        \includegraphics[width=1.0 \textwidth]{img/adv-cmake-dir.png}
       \end{center}
-    \end{minipage}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Camera and Axes Toolbar}
-
-  \includegraphics[width=\textwidth]{screenshots/camerabar.png}
-
-    \begin{itemize}
-      \item Reset the camera to its default parameters
-      \item Magnify a rectangular selection of the view area
-      \item Choose a certain coordinate axes plane to look at
-      \item Toggle rendering of orientation axes 
-      \item Toggle rendering of center of rotation 
-      \item Select a new center of rotation 
-    \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Basic Filters}
-
-    \begin{itemize}
-      \item \keyword{Slice}: Extract a plane, box-, sphere- or cylinder surface out of a data set
-      \item \keyword{Clip}: Extract a plane, box-, sphere- or cylinder volume out of a data set
-      \item \keyword{Warp by Scalar}: Visualizes a scalar value by a height extrusion on a 2D data set 
-      \item \keyword{Contours}: Increases visibility of different solution contour levels 
-      \item \keyword{Surface LIC}: Streamlines on pixel basis, highlights small scale flow features 
-      \item \keyword{Glyphs}: Streamlines on pixel basis, highlights small scale flow features 
-
-      \item \keyword{Stream Traces}: Visualizes the pathline of a particle through a \emph{stationary} vector field 
-    \end{itemize}
+    }
+    \column{0.5 \textwidth} {
+      \begin{center}
+        \includegraphics[width=1.0 \textwidth]{img/adv-cmake-code.png}
+      \end{center}
+    }
+\end{columns}
 
 \end{frame}
 
-\begin{frame}
-  \frametitle{State Files}
+\begin{frame}[fragile]
+  \frametitle{Building a custom library}
+  \begin{block}{The lib\_dir CMakeLists.txt}
+\begin{verbatim}
+set (LIB_SOURCE lib_src.cpp lib_src.hpp)
 
-    \begin{itemize}
-      \item \keyword{State file}: XML format based file with the ending .pvsm that is used to store the currently applied filters and a reference to the currently loaded data sets to a file
-      \item Used to quickly restore a state or to recover from a crash
-      \item The reference to the data set can be changed upon loading the state file in order to apply the
-        filters to a different data set or if the location of the data on the hard drive has changed
-      \item This way state files can be used to exchange a ParaView visualization with collaborators, they only need to set the location of their data set upon loading the state file
-      \item State files can be exchanged between different version of ParaView
-      \item Accessible from Menu: \keyword{File->Load State...}
-    \end{itemize}
-        
+add_library(hello_lib ${LIB_SOURCE}) 
 
+target_compile_definitions(hello_lib PRIVATE FOO=1)
+
+target_include_directories(hello_lib PUBLIC .)
+\end{verbatim}
+  \end{block}
+
+\begin{itemize}
+  \item Set the include paths or include directories
+  \item Add defines that can be used by the preprocessor 
+\end{itemize}
+  
 \end{frame}
 
-\begin{frame}[plain]
-  \vspace{3cm}
-  \includegraphics[width=\textwidth]{screenshots/load-state-file.png}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Examples Files}
-
-    \begin{itemize}
-      \item ParaView examples are provided as state files 
-      \item Download archive of ParaView examples from:
-      \item Extract archive to \kommandozeile{/mypath/to/examples/}
-      \kommandozeile{> tar xvfz pv\_examples.tar.gz -C /mypath/to/examples/}
-      \item Basic filter examples are located in \kommandozeile{/mypath/to/examples/pv\_examples}
-      \item Basic filter examples are located in \kommandozeile{/mypath/to/examples/pv\_examples/BasicFilters}
-      \item To load a basic filter example, load the state file and set data path to:
-        \kommandozeile{/mypath/to/examples/pv\_examples/vtk\_data/u.vtk}
-    \end{itemize}
-        
+\begin{frame}[fragile]
+\begin{block}{The src\_dir CMakeLists.txt}
+\begin{verbatim}
+set (MAIN_SOURCE helloworld.cpp)
+add_executable(hello_world ${MAIN_SOURCE})
+target_compile_options(hello_world PRIVATE -Wall -Wextra)
+if (Boost_FOUND)
+  target_compile_definitions(hello_world PRIVATE BAR=1 
+  WITH_BOOST=1)
+  target_include_directories(hello_world PRIVATE 
+  ${CMAKE_SOURCE_DIR}/lib_src ${BOOST_INCLUDE_DIRS})
+else(Boost_FOUND)
+  target_compile_definitions(hello_world PRIVATE BAR=1)
+  target_include_directories(hello_world PRIVATE 
+  ${CMAKE_SOURCE_DIR}/lib_src)
+endif (Boost_FOUND)
+target_link_libraries(hello_world hello_lib)
+\end{verbatim}
+\end{block}
 
 \end{frame}
 
 \begin{frame}
   \frametitle{Basic Filter Gallery I}
 
-    \begin{tikzpicture}%[nodes=draw]
-
-      \node[align=center,scale=0.2,transform shape] (C1) at (0,0)
-      {\includegraphics{screenshots/warp-by-scalar.png}};
-
-      \node[align=center,scale=0.2,transform shape] (C2) at (0,-6)
-      {\includegraphics{screenshots/contours.png}};
-
-      \node[align=center,scale=0.2,transform shape] (C3) at (12,-6.05)
-      {\includegraphics{screenshots/contours_few.png}};
-
-      \node[align=center,scale=0.2,transform shape] (C4) at (12,0)
-      {\includegraphics{screenshots/glyphs.png}};
-
-    \end{tikzpicture}
+    \begin{itemize}
+      \item CMake has a set of \textbf{CMake modules} to find common third-party libraries
+      \item User can provide additional \textbf{CMake modules} to locate libraries 
+      \item A \textbf{CMake module} is a *.cmake file written in the CMake language 
+      \item Module by convention set variables:
+    \begin{itemize}
+      \item myLibrary\_FOUND: was the library found or not 
+      \item myLibrary\_INCLUDE\_DIRS: the include directories of the library  
+      \item myLibrary\_LIBRARY\_DIRS: the directories where the libraries are located  
+      \item myLibrary\_LIBRARIES: the path to libraries  
+      \item ... (see CMake reference on modules)  
+    \end{itemize}
+    \end{itemize}
 
 \end{frame}
 
