@@ -198,6 +198,15 @@
 
 \end{frame}
 
+\begin{frame}[plain]
+  \frametitle{CMake GUI}
+
+  \begin{center}
+    \includegraphics[width=\textwidth]{img/cmake-gui.png}
+  \end{center}
+
+\end{frame}
+
 \begin{frame}[fragile]
   \frametitle{Advanced CMake Example}
 
@@ -266,6 +275,27 @@ target_link_libraries(hello_world hello_lib)
 \end{frame}
 
 \begin{frame}
+  \frametitle{CMake - Compilation Flags}
+  \begin{block}{Settings Compiler Flags}
+    \begin{itemize}
+      \item Before CMake version 2.8.12 compilation flags were set by:
+      \begin{itemize}
+        \item Using the global variable \texttt{CMAKE\_<LANG>\_FLAGS\_<CONFIG>}, i.e. \texttt{CMAKE\_C\_FLAGS\_RELEASE}  
+        \item The command \texttt{add\_compile\_options}
+      \end{itemize}
+    \item Not recommended anymore, \texttt{CMAKE\_<LANG>\_FLAGS\_<CONFIG>} is global
+    \item Error prone and 'messy' if you have different targets that require different compilation flags
+    \item Since CMake version 2.8.12 it is recommended to use \texttt{target\_compile\_options} sets flags for each individual target
+    \item The optimization level is automatically set by CMake when setting the build type:
+      \begin{itemize}
+        \item \texttt{CMAKE\_BUILD\_TYPE}=Release $\Longrightarrow$ "-O3"
+        \item \texttt{CMAKE\_BUILD\_TYPE}=Debug $\Longrightarrow$ "-g"
+      \end{itemize}
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}
   \frametitle{CMake Find Modules}
 
     \begin{itemize}
@@ -288,18 +318,8 @@ target_link_libraries(hello_world hello_lib)
 
 \begin{frame}
 
-  \frametitle{Basic Filter Gallery II}
+  \frametitle{External Projects}
 
-    \begin{tikzpicture}%[nodes=draw]
-
-      \node[align=center,scale=0.45,transform shape] (C1) at (0,0)
-      {\includegraphics{screenshots/surface_lic_final.png}};
-
-      \node[align=center,scale=0.4,transform shape] (C2) at (0,-6)
-      {\includegraphics{screenshots/streamlines.png}};
-
-
-    \end{tikzpicture}
 
 \end{frame}
 
