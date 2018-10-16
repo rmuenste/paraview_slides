@@ -1,14 +1,3 @@
-\begin{frame}
-	\frametitle{Slides and Examples}
-
-        \begin{itemize}
-		\item Slides:\\
-                  \url{https://depot.tu-dortmund.de/dlep3}
-		\item Examples:\\ 
-                  \url{https://depot.tu-dortmund.de/5al36} 
-        \end{itemize}
-
-\end{frame}
 
 \begin{frame}
   \frametitle{About CMake}
@@ -339,43 +328,36 @@ target_link_libraries(hello_world hello_lib)
 
 \begin{frame}
 
-  \frametitle{Configuration of Tracer Filters}
+  \frametitle{CTest and CDash Overview}
 
     \begin{itemize}
-      \item Tracer type filters need an \keyword{input data set} and a \keyword{seed source}
-      \item The input data set is the the flow field  
-      \item The seed source is a user-defined starting location for the particles inside the flow field  
+      \item CTest component allows you define test cases from your CMake targets
+      \item CTest defines different test configurations i.e. nightly, experimental, continuous
+      \item Execution of a CTest case: update (from repo), configure, build, run, submission to CDash
+      \item CDash is a dashboard web application that displays your test results
+      \item CDash uses the web technologies:
+      \begin{itemize}
+        \item Apache server
+        \item MySQL database   
+        \item PHP
+        \item AngularJS
+      \end{itemize}
+      \item With sufficient knowledge of these technologies CDash can be customized
+      \item CTest \keyword{notes} (JSON) can be submitted to make CDash display custom data
     \end{itemize}
-    \includegraphics[width=0.5\textwidth]{screenshots/tracer-source.png}
 
 \end{frame}
 
-\begin{frame}
+\begin{frame}[plain]
+  \begin{center}
+    \includegraphics[width=\textwidth]{img/CDASH1.png}
+  \end{center}
+\end{frame}
 
-  \frametitle{Input Data Formats}
-
-    \begin{itemize}
-
-      \item VTK data formats support polygonal data sets and structured or unstructured meshes 
-
-      \item \keyword{VTK Legacy format .vtk} is a simple format useable for unstructured meshes (not suited for distributed data)  
-
-      \item \keyword{VTK unstructured .vtu} is an xml based format for unstructured meshes   
-    \begin{itemize}
-
-      \item Can have the mesh data part encoded in a binary format   
-
-      \item A \keyword{.pvtu} file can be used to reference the partial solutions of a distributed computation   
-
-      \item A \keyword{.pvd} file can be used to add time information   
-
-    \end{itemize}
-
-    \item For further information on VTK file formats see:
-      \url{http://www.vtk.org/VTK/img/file-formats.pdf}
-
-  \end{itemize}
-
+\begin{frame}[plain]
+  \begin{center}
+    \includegraphics[width=\textwidth]{img/CDASH2.png}
+  \end{center}
 \end{frame}
 
 \begin{frame}[squeeze]
