@@ -1,8 +1,0 @@
-/home/rafa/code/GitHub/cmake_examples/example2/bin/CMakeFiles/rebuild_cache.dir
-/home/rafa/code/GitHub/cmake_examples/example2/bin/CMakeFiles/edit_cache.dir
-/home/rafa/code/GitHub/cmake_examples/example2/bin/src_dir/CMakeFiles/rebuild_cache.dir
-/home/rafa/code/GitHub/cmake_examples/example2/bin/src_dir/CMakeFiles/hello_world.dir
-/home/rafa/code/GitHub/cmake_examples/example2/bin/src_dir/CMakeFiles/edit_cache.dir
-/home/rafa/code/GitHub/cmake_examples/example2/bin/lib_dir/CMakeFiles/rebuild_cache.dir
-/home/rafa/code/GitHub/cmake_examples/example2/bin/lib_dir/CMakeFiles/hello_lib.dir
-/home/rafa/code/GitHub/cmake_examples/example2/bin/lib_dir/CMakeFiles/edit_cache.dir
